@@ -99,6 +99,7 @@ export const deleteTask = async (taskId, token) => {
         throw new Error(response.data.message)
       }
       toast.success("Task deleted successfully.")
+      
       return response.data; 
     } catch (error) {
       console.error("Error deleting task:", error);

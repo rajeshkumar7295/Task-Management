@@ -14,7 +14,8 @@ const store = configureStore({
 })
 
 root.render(
-  
+  <React.StrictMode>
+
     <Provider store={store}>
 
     <BrowserRouter>
@@ -22,6 +23,7 @@ root.render(
     <Toaster/>
     </BrowserRouter>
     </Provider>
+  </React.StrictMode>
     
   
 );

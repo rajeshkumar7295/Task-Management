@@ -1,70 +1,97 @@
-# Getting Started with Create React App
+Task Management Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This README provides step-by-step instructions for running the Task Management Application (both the backend and frontend) locally on your system.
 
-## Available Scripts
+Prerequisites
 
-In the project directory, you can run:
+Ensure you have the following tools installed:
 
-### `npm start`
+Node.js (v16 or later)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+npm (Node Package Manager, bundled with Node.js)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+MongoDB (local or cloud instance)
 
-### `npm test`
+Backend Setup
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Clone the Repository
 
-### `npm run build`
+# Clone the repository
+git clone <repository-url>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Navigate to the backend directory
+cd task_management_backend
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2. Install Dependencies
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+npm install
 
-### `npm run eject`
+3. Configure Environment Variables
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Create a .env file in the task_management_backend directory and add the following:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+PORT=5000
+MONGO_URI=<your_mongo_connection_string>
+JWT_SECRET=<your_jwt_secret_key>
+CLOUDINARY_NAME=<your_cloudinary_name>
+CLOUDINARY_API_KEY=<your_cloudinary_api_key>
+CLOUDINARY_API_SECRET=<your_cloudinary_api_secret>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Replace <your_mongo_connection_string>, <your_jwt_secret_key>, and Cloudinary credentials with your actual values.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+4. Start the Server
 
-## Learn More
+In Development Mode:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+npm run dev
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+In Production Mode:
 
-### Code Splitting
+npm start
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+The backend server should now be running on http://localhost:5000 (or the port specified in your .env file).
 
-### Analyzing the Bundle Size
+Frontend Setup
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+1. Navigate to the Frontend Directory
 
-### Making a Progressive Web App
+# Navigate to the frontend directory
+cd task-management
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+2. Install Dependencies
 
-### Advanced Configuration
+npm install
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+3. Start the Frontend
 
-### Deployment
+In Development Mode:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+npm start
 
-### `npm run build` fails to minify
+The frontend application will open automatically in your default browser, or you can access it at http://localhost:3000.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Running Both Frontend and Backend Simultaneously
+
+You can use the concurrently script provided in the frontend's package.json to run both servers at the same time:
+
+npm run dev
+
+This will start:
+
+The frontend on http://localhost:3000
+
+The backend on http://localhost:4000
+
+Additional Notes
+
+MongoDB:
+Ensure MongoDB is running locally or you have provided a valid connection string for a cloud database (e.g., MongoDB Atlas).
+
+Cloudinary:
+Cloudinary credentials are required for handling file uploads. If you don’t use Cloudinary, you may need to modify the file upload functionality.
+
+Environment Variables:
+Never share your .env file or sensitive keys in a public repository.
+
+With these steps, your Task Management Application should now be fully functional locally!
+

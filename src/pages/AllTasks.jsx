@@ -76,6 +76,7 @@ const AllTasks = () => {
     try {
       await deleteTask(taskId,token);
       toast.success("Task deleted successfully");
+      setConfirmationModal(null);
       fetchTasks();
     } catch (error) {
       toast.error("Failed to delete task");

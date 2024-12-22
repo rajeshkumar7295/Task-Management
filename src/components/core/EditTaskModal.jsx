@@ -13,6 +13,7 @@ const EditTaskModal = ({ open, handleClose, taskData,updateTaskInList }) => {
     dueDate: "",
     status: "pending",
     taskFile: null,
+    existingFile:null
   });
 
   useEffect(() => {
@@ -23,6 +24,9 @@ const EditTaskModal = ({ open, handleClose, taskData,updateTaskInList }) => {
         dueDate: taskData?.dueDate ? new Date(taskData.dueDate).toISOString().split('T')[0] : "",
         status: taskData.status || "pending",
         taskFile: null, 
+        existingFile:taskData.taskFile || null
+
+
       });
     }
   }, [taskData, open]); 
@@ -40,6 +44,7 @@ const EditTaskModal = ({ open, handleClose, taskData,updateTaskInList }) => {
     e.preventDefault();
 
     try {
+        
       
       const response = await updateTask(taskData._id, formData, token); 
 
@@ -116,6 +121,21 @@ const EditTaskModal = ({ open, handleClose, taskData,updateTaskInList }) => {
             margin="normal"
             required
           />
+          
+          {formData.existingFile && (
+            <Typography variant="body2" className="mt-2">
+              Current File:{" "}
+              <a
+                href={formData.existingFile}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 underline"
+              >
+                {formData.existingFile.split("/").pop()}
+              </a>
+            </Typography>
+          )}
+
           <input
             type="file"
             name="taskFile"
