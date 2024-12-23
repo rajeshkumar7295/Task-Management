@@ -21,7 +21,7 @@ const Sidebar = () => {
   return (
     <>
       <div className='hidden md:block'>
-        <div className='flex min-w-[222px] mt-10 flex-col border-r-[1px] border-r-richblack-700 h-[calc(100vh-3.5rem)] bg-richblack-800 py-10'>
+        <div className='flex min-w-[222px] mt-10 flex-col border-r-[1px]  h-[calc(100vh-3.5rem)]  py-10'>
           <div className='flex flex-col'>
             {
               sidebarLinks.map((link, index) => {
@@ -33,9 +33,9 @@ const Sidebar = () => {
               )
             }
           </div>
-          <div className="mx-auto mt-6 mb-6 h-[1px] w-10/12 bg-richblack-700" />
+          <div className="mx-auto mt-6 mb-6 h-[1px] w-10/12 " />
           <div className='flex flex-col'>
-            <SidebarLink link={{ name: "Settings", path: "/dashboard/settings" }} iconName={"VscSettingsGear"} />
+            <li className='list-none ml-10'>Settings</li>
             <button className="px-8 py-2 text-sm font-medium text-richblack-300"
               onClick={() => setConfirmationModal({
                 text1: "Are you sure?",

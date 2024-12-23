@@ -19,7 +19,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { toast } from "react-hot-toast";
 import ConfirmationModal from "../components/common/ConfirmationModal";
 import { useSelector } from "react-redux";
-import { getAllTasks, deleteTask } from "../services/operations/taskApi"; // Adjust this to call your API
+import { getAllTasks, deleteTask } from "../services/operations/taskApi"; 
 import EditTaskModal from "../components/core/EditTaskModal";
 const AllTasks = () => {
     const {token}=useSelector((state)=>state.auth);
@@ -126,7 +126,9 @@ const AllTasks = () => {
             {tasks?.map((task) => (
               <TableRow key={task._id}>
                 <TableCell>{task.title}</TableCell>
-                <TableCell>{task.description}</TableCell>
+                <TableCell> {task.description.length > 40
+          ? `${task.description.slice(0, 40)}...`
+          : task.description}</TableCell>
                 <TableCell>{new Date(task.dueDate).toLocaleDateString()}</TableCell>
                 <TableCell className={` ${task.status === "completed"
       ? "!text-blue-600"

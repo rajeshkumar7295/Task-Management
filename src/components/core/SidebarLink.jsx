@@ -1,6 +1,6 @@
 import React from 'react'
 import { NavLink, matchPath, useLocation } from 'react-router-dom';
-const SidebarLink = ({ link, iconName }) => {
+const SidebarLink = ({ link }) => {
   
   const location = useLocation();
   const matchRoute = (route) => {

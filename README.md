@@ -69,7 +69,11 @@ In Development Mode:
 npm start
 
 The frontend application will open automatically in your default browser, or you can access it at http://localhost:3000.
-
+   
+   Demo Account
+   Email : demo@gmail.com
+   password:12345678
+   
 Running Both Frontend and Backend Simultaneously
 
 You can use the concurrently script provided in the frontend's package.json to run both servers at the same time:

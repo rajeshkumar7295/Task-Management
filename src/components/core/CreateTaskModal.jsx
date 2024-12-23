@@ -1,20 +1,22 @@
 import React, { useState } from "react";
-import { Modal, Box, Typography, TextField, Button,IconButton,MenuItem } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close"; 
-import { createTask } from "../../services/operations/taskApi"; 
+import { Modal, Box, Typography, TextField, Button, IconButton, MenuItem } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import { createTask } from "../../services/operations/taskApi";
 import { toast } from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 const CreateTaskModal = ({ open, handleClose }) => {
-    const {token}=useSelector((state)=>state.auth);
-    const navigate=useNavigate();
-  const [formData, setFormData] = useState({
+  const { token } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+  const initialFormData = {
     title: "",
     description: "",
     dueDate: "",
     taskFile: null,
-  status: "pending",
-  });
+    status: "pending",
+  };
+  const [formData, setFormData] = useState(initialFormData);
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -24,34 +26,43 @@ const CreateTaskModal = ({ open, handleClose }) => {
   const handleFileChange = (e) => {
     setFormData({ ...formData, taskFile: e.target.files[0] });
   };
+  const resetForm = () => {
+    setFormData(initialFormData);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      
-    
-      const response = await createTask( formData,token,navigate); 
+
+
+      const response = await createTask(formData, token, navigate);
 
       if (response.success) {
         toast.success("Task created successfully!");
-        handleClose(); 
+        resetForm();
+        handleClose();
+        
       } else {
         toast.error(response.message || "Failed to create task.");
       }
     } catch (error) {
       toast.error(error.message || "An error occurred while creating the task.");
     }
-  };
 
+  };
+  const handleModalClose = () => {
+    resetForm(); 
+    handleClose();
+  };
   return (
-    <Modal open={open} onClose={handleClose}>
+    <Modal open={open} onClose={handleModalClose}>
       <Box
         className="bg-white p-6 rounded-lg shadow-md w-full max-w-md mx-auto mt-20"
         sx={{ outline: "none" }}
       >
-     <Box className="flex justify-end">
-          <IconButton onClick={handleClose}>
+        <Box className="flex justify-end">
+          <IconButton onClick={handleModalClose}>
             <CloseIcon />
           </IconButton>
         </Box>
@@ -59,8 +70,8 @@ const CreateTaskModal = ({ open, handleClose }) => {
         <Typography variant="h5" className="text-center mb-4">
           Create Task
         </Typography>
-        
-          
+
+
         <form onSubmit={handleSubmit}>
           <TextField
             label="Title"
@@ -82,7 +93,7 @@ const CreateTaskModal = ({ open, handleClose }) => {
             multiline
             rows={4}
           />
-           <TextField
+          <TextField
             select
             label="Status"
             name="status"
@@ -113,7 +124,7 @@ const CreateTaskModal = ({ open, handleClose }) => {
             accept="image/*,application/pdf"
           />
           <div className="mt-4 flex gap-2 justify-end">
-            <Button onClick={handleClose} className="mr-2" variant="outlined">
+            <Button onClick={handleModalClose} className="mr-2" variant="outlined">
               Cancel
             </Button>
             <Button type="submit" variant="contained" color="primary">

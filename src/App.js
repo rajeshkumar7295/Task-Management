@@ -4,7 +4,7 @@ import { Route,Routes } from 'react-router-dom';
 import OpenRoute from './components/auth/OpenRoute';
 import PrivateRoute from './components/auth/PrivateRoute';
 import HomePage from './pages/Home';
-import { LogIn } from './pages/LogIn';
+import { LogIn } from './pages/Login';
 import { SignUp } from './pages/SignUp';
 import Dashboard from './pages/Dashboard';
 import DashboardStats from './components/core/DashboardStats';
