@@ -22,16 +22,16 @@ export function register(
 
       })
 
-      console.log("SIGNUP API RESPONSE............", response)
+     
 
       if (!response.data.success) {
-        throw new Error(response.data.message)
+        throw new Error(response.data.message);
       }
       toast.success("Signup Successful")
       navigate("/login")
     } catch (error) {
       console.log("SIGNUP API ERROR............", error)
-      toast.error("Signup Failed")
+      toast.error(error.response.data.message);
       navigate("/register")
     }
     dispatch(setLoading(false))
@@ -49,11 +49,12 @@ export function login(email, password, navigate) {
         email,
         password,
       })
-
+      
 
 
       if (!response.data.success) {
-        throw new Error(response.data.message)
+        throw new Error(response.data.message);
+        
       }
 
       toast.success("Login Successful")
@@ -68,7 +69,7 @@ export function login(email, password, navigate) {
       navigate("/dashboard");
     } catch (error) {
       console.log("LOGIN API ERROR............", error)
-      toast.error("Login Failed")
+      toast.error(error.response.data.message);
     }
 
     dispatch(setLoading(false))
@@ -92,14 +93,14 @@ export function changePassword(token, formData) {
   return async () => {
     const toastId = toast.loading("loading");
     try {
-      
+
       const response = await apiConnector('PUT', BASE_URL + "/auth/changePassword", formData, {
         Authorization: `Bearer ${token}`,
-        
+
       });
-      
+
       if (!response.data.success) {
-      throw new Error(response.data.message);
+        toast.error(response.data.message);
       }
       toast.success("Password Change Successfully");
 
@@ -115,9 +116,9 @@ export function deleteAccount(token, navigate) {
 
     const toastId = toast.loading("loading");
     try {
-      const response = await apiConnector("DELETE", BASE_URL+"/auth/deleteAccount", null, {
-        Authorization: `Bearer ${token}`, 
-          "Content-Type": "multipart/form-data",
+      const response = await apiConnector("DELETE", BASE_URL + "/auth/deleteAccount", null, {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
       });
 
 

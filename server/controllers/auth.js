@@ -44,7 +44,7 @@ exports.register = async (req, res) => {
         })
     } catch (error) {
 
-        console.log(error);
+        
         return res.status(500).json({
             success: false,
             message: "User cannot be registrered. Please try again",
@@ -99,7 +99,6 @@ exports.login = async (req, res) => {
             })
         }
     } catch (error) {
-        console.log(error);
         return res.status(500).json({
             success: false,
             message: 'Login Failure, please try again',
@@ -167,7 +166,7 @@ exports.deleteAccount = async (req, res) => {
         })
 
     } catch (error) {
-        console.log(error);
+       
         return res.status(500).json({
             success: false,
             message: "unable to delete user",
