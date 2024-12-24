@@ -13,6 +13,11 @@ export const sidebarLinks = [
       
       
     },
+  {
+    id:3,
+    name:"Settings",
+    path:"/dashboard/setting"
+  }
     
   ];
   

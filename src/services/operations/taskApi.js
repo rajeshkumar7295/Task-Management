@@ -42,7 +42,7 @@ export const createTask=async(taskData,token,navigate)=>{
             
         )
         if (!response.data.success) {
-            throw new Error(response.data.message ||"Unknown error occurred.")
+            toast.error(response.data.message ||"Unknown error occurred.")
           }
     toast.success("Task created Successfully")
     navigate("/dashboard/all-tasks")

@@ -1,5 +1,6 @@
 const Task=require("../models/Tasks");
 const moment=require("moment");
+const User=require("../models/User");
 const cloudinary=require("cloudinary").v2;
 
 const uploadFileToCloudinary = async (filePath, folderName) => {
@@ -35,7 +36,7 @@ exports.createTask = async (req, res) => {
             fileUrl = uploadFile.secure_url; 
         }
 
-        // Create a new task
+       
         const task = new Task({
             title,
             description,
@@ -46,14 +47,22 @@ exports.createTask = async (req, res) => {
         });
 
         await task.save();
+        const user = await User.findByIdAndUpdate(
+          userId,
+          { $push: { task: task._id } },
+          { new: true }
+      );
 
+      if (!user) {
+        return res.status(404).json({ success: false, message: "User not found." });
+    }
         res.status(200).json({
             success: true,
             message: "Task created successfully.",
             data: task,
         });
     } catch (error) {
-        console.error(error);
+        
         return res.status(500).json({
             success: false,
             message: 'Failed to create task.',
@@ -141,7 +150,7 @@ exports.deleteTask = async (req, res) => {
             message: 'Task deleted successfully.',
         });
     } catch (error) {
-        console.error(error);
+        
         return res.status(500).json({
             success: false,
             message: 'Failed to delete task.',
@@ -154,7 +163,7 @@ exports.deleteTask = async (req, res) => {
 
 exports.getAllTasks = async (req, res) => {
     try {
-      const userId = req.user?.id; // Authenticated user's ID
+      const userId = req.user?.id;
       const { status, page = 1, limit = 5, search = "" } = req.query; 
   
       
@@ -166,11 +175,11 @@ exports.getAllTasks = async (req, res) => {
       if (status === "today") {
         const today = new Date();
         query.dueDate = {
-          $gte: new Date(today.setHours(0, 0, 0, 0)), // Start of today
-          $lte: new Date(today.setHours(23, 59, 59, 999)), // End of today
+          $gte: new Date(today.setHours(0, 0, 0, 0)), 
+          $lte: new Date(today.setHours(23, 59, 59, 999)), 
         };
       } else if (status === "overdue") {
-        query.dueDate = { $lt: new Date() }; // Tasks with due dates in the past
+        query.dueDate = { $lt: new Date() }; 
       }
   
       if (search) {
@@ -182,9 +191,9 @@ exports.getAllTasks = async (req, res) => {
   
       
       const tasks = await Task.find(query)
-        .skip((pageNumber - 1) * limitNumber) // Skip the previous pages
-        .limit(limitNumber) // Limit to the specified number of tasks per page
-        .sort({ dueDate: 1 }); // Sort by due date
+        .skip((pageNumber - 1) * limitNumber) 
+        .limit(limitNumber) 
+        .sort({ dueDate: 1 }); 
   
       
       const totalTasks = await Task.countDocuments(query);
@@ -196,7 +205,7 @@ exports.getAllTasks = async (req, res) => {
         totalTasks, 
       });
     } catch (error) {
-      console.error(error);
+      
       res.status(500).json({
         success: false,
         message: "Failed to retrieve tasks.",

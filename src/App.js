@@ -9,6 +9,7 @@ import { SignUp } from './pages/SignUp';
 import Dashboard from './pages/Dashboard';
 import DashboardStats from './components/core/DashboardStats';
 import AllTasks from './pages/AllTasks';
+import Setting from './pages/Setting';
 function App() {
   return (
     <div className="w-screen min-h-screen">
@@ -45,6 +46,10 @@ function App() {
        <Route
         path="/dashboard/all-tasks"
         element={<AllTasks/>}
+       />
+       <Route
+        path="/dashboard/setting"
+        element={<Setting/>}
        />
         </Route>
      </Routes>
