@@ -1,5 +1,6 @@
 const Task=require("../models/Tasks");
 const moment=require("moment");
+const User=require("../models/User");
 const cloudinary=require("cloudinary").v2;
 
 const uploadFileToCloudinary = async (filePath, folderName) => {
@@ -46,7 +47,15 @@ exports.createTask = async (req, res) => {
         });
 
         await task.save();
+        const user = await User.findByIdAndUpdate(
+          userId,
+          { $push: { task: task._id } },
+          { new: true }
+      );
 
+      if (!user) {
+        return res.status(404).json({ success: false, message: "User not found." });
+    }
         res.status(200).json({
             success: true,
             message: "Task created successfully.",

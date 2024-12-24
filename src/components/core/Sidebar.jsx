@@ -35,8 +35,8 @@ const Sidebar = () => {
           </div>
           <div className="mx-auto mt-6 mb-6 h-[1px] w-10/12 " />
           <div className='flex flex-col'>
-            <li className='list-none ml-10'>Settings</li>
-            <button className="px-8 py-2 text-sm font-medium text-richblack-300"
+            
+            <button className="px-8 py-2 text-sm font-medium "
               onClick={() => setConfirmationModal({
                 text1: "Are you sure?",
                 text2: "You will be logged out of your account.",
