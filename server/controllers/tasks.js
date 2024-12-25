@@ -171,7 +171,7 @@ exports.getAllTasks = async (req, res) => {
       const limitNumber = parseInt(limit);
   
       let query = { user: userId };
-  
+      
       if (status === "today") {
         const today = new Date();
         query.dueDate = {
