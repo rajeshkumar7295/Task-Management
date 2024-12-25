@@ -12,11 +12,7 @@ export default function LogInForm() {
     email: '',
     password: '',
   });
-  const [errors, setErrors] = useState({
-    username: '',
-    email: '',
-    password: '',
-  });
+  
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -26,16 +22,14 @@ export default function LogInForm() {
     }));
     
     
-    setErrors(prevErrors => ({
-      ...prevErrors,
-      [name]: '',
-    }));
+    
   };
 
- 
+  
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    
      dispatch(login(formData.email,formData.password,navigate))
   };
 
@@ -56,8 +50,7 @@ export default function LogInForm() {
             required
             value={formData.email}
             onChange={handleChange}
-            error={!!errors.email}
-            helperText={errors.email}
+            
             className="bg-gray-50"
           />
           <TextField
@@ -69,8 +62,7 @@ export default function LogInForm() {
             required
             value={formData.password}
             onChange={handleChange}
-            error={!!errors.password}
-            helperText={errors.password}
+           
             className="bg-gray-50"
           />
           <Button

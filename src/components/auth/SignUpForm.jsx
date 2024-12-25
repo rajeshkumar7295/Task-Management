@@ -32,10 +32,34 @@ export default function SignUpForm() {
     }));
   };
 
+ const validateForm = () => {
+  let valid = true;
+  const newErrors = {};
+
+  // Email validation
+  if (!formData.email.includes('@')) {
+    valid = false;
+    newErrors.email = 'Please enter a valid email address.';
+  }
+
+  // Password validation
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{6,}$/;
+  if (!passwordRegex.test(formData.password)) {
+    valid = false;
+    newErrors.password =
+      'Password must be at least 6 characters long, contain one uppercase letter, one lowercase letter, one number, and one symbol.';
+  }
+
+  setErrors(newErrors);
+  return valid;
+};
 
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    if (!validateForm()) {
+      return; 
+    }
     const signupData ={
       ...formData,
       
